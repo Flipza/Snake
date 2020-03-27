@@ -107,23 +107,42 @@ wn.onkeypress(go_right, "d")
 while True:
     wn.update()
 
+    # No border collision, spawn at oponent side
+    if head.xcor() > 290: #or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+        x = head.xcor()
+        y = head.ycor()
+        head.goto(x - 600, y)
+    elif head.xcor()<-290:
+        x = head.xcor()
+        y = head.ycor()
+        head.goto(x + 600, y)
+    elif head.ycor()>290:
+        x = head.xcor()
+        y = head.ycor()
+        head.goto(x, y - 600)
+    elif head.ycor()<-290:
+        x = head.xcor()
+        y = head.ycor()
+        head.goto(x, y + 600)
+
+
     # Check for a collision with the border
-    if head.xcor() > 290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
-        time.sleep(1)
-        head.goto(0, 0)
-        head.direction = "stop"
+#    if head.xcor() > 290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+#        time.sleep(1)
+#        head.goto(0, 0)
+#        head.direction = "stop"
 
         # Hide the segments
-        for segment in segments:
-             segment.goto(1000, 1000)
+#        for segment in segments:
+#             segment.goto(1000, 1000)
 
         # Clear the segments list
-        segments.clear()
+#        segments.clear()
 
         # Reset the Score
-        score = 0
-        pen.clear()
-        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
+#        score = 0
+#        pen.clear()
+#        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
 
 
