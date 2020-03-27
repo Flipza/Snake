@@ -6,13 +6,15 @@
 import turtle
 import time
 import random
+ 
+
+# Score
+score = 0.0
+high_score = 0
 
 # Speed of Gameloop
 delay = 0.1
-
-# Score
-score = 0
-high_score = 0
+#delay = 0.1 - score/100.0
 
 
 # Set up the Screen
@@ -108,7 +110,7 @@ while True:
     wn.update()
 
     # No border collision, spawn at oponent side
-    if head.xcor() > 290: #or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+    if head.xcor() > 290:
         x = head.xcor()
         y = head.ycor()
         head.goto(x - 600, y)
@@ -206,6 +208,6 @@ while True:
             pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
 
-    time.sleep(delay)
+    time.sleep(delay - score/10000)
 
 wn.mainloop()
