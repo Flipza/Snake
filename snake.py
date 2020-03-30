@@ -149,12 +149,26 @@ while True:
 
 
     # Check for a Collision with the food
-    if head.distance(food) < 20:
+    if head.distance(food) < 25:
 
         # Move the food to random spot on the screen
         x = random.randint(-290, 290)
         y = random.randint(-290, 290)
         food.goto(x,y)
+        for segment in segments:
+            if food.distance(segment) < 40:
+                food.goto(2000, 2000)
+            elif food.distance(segment) > 1200:
+                x = random.randint(-290, 290)
+                y = random.randint(-290, 290)
+                food.goto(x,y)
+
+                
+                
+
+#        x = random.randint(-290, 290)
+#        y = random.randint(-290, 290)
+#        food.goto(x,y)
 
         # Add a segment
         new_segment = turtle.Turtle()
@@ -208,6 +222,6 @@ while True:
             pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
 
-    time.sleep(delay - score/10000)
+    time.sleep(delay - score/10000.0)
 
 wn.mainloop()
