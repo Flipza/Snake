@@ -12,6 +12,7 @@ import random
 score = 0.0
 high_score = 0
 
+
 # Speed of Gameloop
 delay = 0.1
 #delay = 0.1 - score/100.0
@@ -150,25 +151,20 @@ while True:
 
     # Check for a Collision with the food
     if head.distance(food) < 25:
-
+    
         # Move the food to random spot on the screen
-        x = random.randint(-290, 290)
-        y = random.randint(-290, 290)
-        food.goto(x,y)
-        for segment in segments:
-            if food.distance(segment) < 40:
-                food.goto(2000, 2000)
-            elif food.distance(segment) > 1200:
+        while food.distance(head.xcor(), head.ycor()) < 40 and food.distance(segments) < 40:
+            x = random.randint(-290, 290)
+            y = random.randint(-290, 290)
+            food.goto(x,y)
+            if food.distance(head.xcor(), head.ycor()) > 40 and food.distance(segments) > 40: 
                 x = random.randint(-290, 290)
                 y = random.randint(-290, 290)
                 food.goto(x,y)
-
-                
-                
-
-#        x = random.randint(-290, 290)
-#        y = random.randint(-290, 290)
-#        food.goto(x,y)
+                break
+            x = random.randint(-290, 290)
+            y = random.randint(-290, 290)
+            food.goto(x,y)
 
         # Add a segment
         new_segment = turtle.Turtle()
