@@ -13,6 +13,9 @@ score = 0.0
 high_score = 0
 
 
+# Food Variable for Coord-Ckeck
+f_coord = 0
+
 # Speed of Gameloop
 delay = 0.1
 #delay = 0.1 - score/100.0
@@ -47,7 +50,9 @@ food.speed(0)
 food.shape("circle")
 food.color("red")
 food.penup()
-food.goto(0,100)
+xfood = 0
+yfood = 100
+food.goto(xfood,yfood)
 
 # Pen
 pen = turtle.Turtle()
@@ -151,20 +156,29 @@ while True:
 
     # Check for a Collision with the food
     if head.distance(food) < 25:
-    
+        f_coord = 0
+        
         # Move the food to random spot on the screen
-        while food.distance(head.xcor(), head.ycor()) < 40 and food.distance(segments) < 40:
-            x = random.randint(-290, 290)
-            y = random.randint(-290, 290)
-            food.goto(x,y)
-            if food.distance(head.xcor(), head.ycor()) > 40 and food.distance(segments) > 40: 
-                x = random.randint(-290, 290)
-                y = random.randint(-290, 290)
-                food.goto(x,y)
-                break
-            x = random.randint(-290, 290)
-            y = random.randint(-290, 290)
-            food.goto(x,y)
+        while f_coord == 0:
+            xfood = random.randint(-290, 290)
+            yfood = random.randint(-290, 290)
+            if xfood != head.xcor() or yfood != head.ycor():
+                f_coord = 1
+#                print("Head.Check.FALSE!")
+            else:
+                f_coord = 0
+                print("Head.Check.TRUE!")
+            for segment in segments:
+                if xfood != segment.xcor() or yfood != segment.ycor():
+                    f_coord = 1
+#                    print("Segment.Check.FALSE!")
+                else:
+                    f_coord = 0
+                    print("Segment.Check.TRUE!")  
+
+
+        food.goto(xfood, yfood)
+        
 
         # Add a segment
         new_segment = turtle.Turtle()
@@ -197,7 +211,7 @@ while True:
 
 
     move()
-
+    
     # Check for head collision with the body segments
     for segment in segments:
         if segment.distance(head) < 20:
@@ -219,5 +233,6 @@ while True:
 
 
     time.sleep(delay - score/10000.0)
+    
 
 wn.mainloop()
